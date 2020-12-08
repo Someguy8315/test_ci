@@ -1,1 +1,1 @@
-print("Hello"
+a = 3 / 0
