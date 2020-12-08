@@ -1,1 +1,2 @@
-a = 3 / 0.g
+def func()
+    print("CRKL")
