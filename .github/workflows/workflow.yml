@@ -19,17 +19,14 @@ jobs:
           generator: Ninja Multi-Config
           build-args: "--config Debug"
 
-      - name: Run the executable (Debug mode)
-        run: ./build/Debug/main
+      - name: Build and run the tests (Debug mode)
+        run: cmake --build build --config Debug --target main_test && ./build/tests/Debug/main_test
 
       - name: Build the package (Release mode)
-        run: cmake --build build --config Release
+        run: cmake --build build --config Release --target func
 
       - name: Install the package
         run: cmake --install build --prefix package --config Release
-
-      - name: Run the executable (Release mode)
-        run: ./package/bin/main
 
       - name: Archive the package
         run: tar -czvf package.tar.gz package/
