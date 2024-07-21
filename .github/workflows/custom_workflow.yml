@@ -25,8 +25,9 @@ jobs:
           black --check .
 
       - name: Install bun
-        run: |
-          curl -fsSL https://bun.sh/install | bash
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
 
       - name: Check bun version
         run: |
