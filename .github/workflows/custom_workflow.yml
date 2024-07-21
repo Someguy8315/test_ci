@@ -23,3 +23,11 @@ jobs:
       - name: Check code formatting
         run: |
           black --check .
+
+      - name: Install bun
+        run: |
+          curl -fsSL https://bun.sh/install | bash
+
+      - name: Check bun version
+        run: |
+          bun -v
