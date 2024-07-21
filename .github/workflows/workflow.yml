@@ -20,3 +20,15 @@ jobs:
 
       - name: Run executable
         run: ./build/main
+
+      - name: Install the package
+        run: cmake --install build --prefix package
+
+      - name: Archive the package
+        run: tar -czvf package.tar.gz package/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: package
+          path: package.tar.gz

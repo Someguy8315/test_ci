@@ -8,3 +8,7 @@ set(ASAN_FLAG "-fsanitize=address")
 
 target_compile_options(main PRIVATE ${ASAN_FLAG} -g)
 target_link_options(main PRIVATE ${ASAN_FLAG})
+
+install(TARGETS main
+    DESTINATION bin
+)
