@@ -10,6 +10,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Install Ninja
+        run: sudo apt-get update && sudo apt-get install -y ninja-build
+
       - name: Setup cmake
         uses: jwlawson/actions-setup-cmake@v2
         with:
