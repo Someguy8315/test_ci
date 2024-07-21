@@ -18,11 +18,11 @@ jobs:
         with:
           generator: Ninja
 
-      - name: Run executable
-        run: ./build/main
-
       - name: Install the package
         run: cmake --install build --prefix package
+
+      - name: Run the executable
+        run: ./package/bin/main
 
       - name: Archive the package
         run: tar -czvf package.tar.gz package/
