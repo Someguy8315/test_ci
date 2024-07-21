@@ -15,6 +15,8 @@ jobs:
 
       - name: CMake - Configure & Build
         uses: threeal/cmake-action@main
+        with:
+          generator: Ninja
 
       - name: Run executable
         run: ./build/main
