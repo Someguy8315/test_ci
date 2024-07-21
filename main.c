@@ -2,6 +2,7 @@
 
 int main()
 {
-    puts("Hello")
+    int arr[3];
+    arr[3] = 5;
     return 0;
 }
