@@ -16,12 +16,12 @@ jobs:
       - name: CMake - Configure & Build
         uses: threeal/cmake-action@main
         with:
-          generator: Ninja
+          generator: Ninja Multi-Config
 
       - name: Install the package
         run: cmake --install build --prefix package
 
-      - name: Run the executable
+      - name: Run the executable (Release mode)
         run: ./package/bin/main
 
       - name: Archive the package

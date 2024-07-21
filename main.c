@@ -4,7 +4,7 @@
 int main()
 {
     int arr[3];
-    arr[2] = 5;
+    arr[3] = 5;
 
     int value = getValue();
     printf("value = %d\n", value);
