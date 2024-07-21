@@ -13,5 +13,8 @@ jobs:
       - name: Setup Ninja
         uses: seanmiddleditch/gha-setup-ninja@master
 
-      - name: Setup cmake
+      - name: CMake - Configure & Build
         uses: threeal/cmake-action@main
+
+      - name: Run executable
+        run: ./build/main
