@@ -4,6 +4,11 @@ project(main)
 
 add_subdirectory(src)
 
+if(UNIX)
+    message("Unix: Setting RPATH...")
+    list(APPEND CMAKE_INSTALL_RPATH $ORIGIN/../lib)
+endif()
+
 add_executable(main main.c)
 
 set(ASAN_FLAG "-fsanitize=address")
