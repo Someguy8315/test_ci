@@ -1,4 +1,4 @@
-def func()
+def func():
     print("CRKL")
 
     
