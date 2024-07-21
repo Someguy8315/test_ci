@@ -26,7 +26,7 @@ jobs:
         run: cmake --build build --config Release --target func
 
       - name: Install the package
-        run: cmake --install build --prefix package --config Release
+        run: cmake --install build/src --prefix package --config Release
 
       - name: Archive the package
         run: tar -czvf package.tar.gz package/
