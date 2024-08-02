@@ -10,23 +10,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Ninja
-        uses: seanmiddleditch/gha-setup-ninja@master
+      - name: Setup CMake and Ninja
+        uses: lukka/get-cmake@latest
 
-      - name: CMake - Configure & Build (Debug mode)
-        uses: threeal/cmake-action@main
-        with:
-          generator: Ninja Multi-Config
-          build-args: "--config Debug"
+      - name: Configure CMake
+        run: cmake -S . -B build -G "Ninja Multi-Config"
+
+      - name: Build the project (Debug mode)
+        run: cmake --build build --target func
 
       - name: Build and run the tests (Debug mode)
-        run: cmake --build build --config Debug --target main_test && ./build/tests/Debug/main_test
+        run: |
+          cmake --build build --config Debug --target main_test
+          ctest --test-dir build --config Debug --output-on-failure
 
       - name: Build the package (Release mode)
         run: cmake --build build --config Release --target func
 
       - name: Install the package
-        run: cmake --install build/src --prefix package --config Release
+        run: cmake --install build --config Release --prefix package
 
       - name: Archive the package
         run: tar -czvf package.tar.gz package/
