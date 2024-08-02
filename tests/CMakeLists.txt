@@ -26,4 +26,3 @@ target_link_options(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} PRIVATE func GTest::gtest_main)
 
 add_test(NAME MainTests COMMAND ${PROJECT_NAME})
-
