@@ -14,7 +14,7 @@ jobs:
         uses: lukka/get-cmake@latest
 
       - name: Configure CMake
-        run: cmake -S . -B build -G "Ninja Multi-Config -DINSTALL_GTEST=OFF"
+        run: cmake -S . -B build -G "Ninja Multi-Config" -DINSTALL_GTEST=OFF
 
       - name: Build and run the tests (Debug mode)
         run: |
