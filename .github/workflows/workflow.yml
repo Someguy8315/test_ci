@@ -22,7 +22,7 @@ jobs:
       - name: Build and run the tests (Debug mode)
         run: |
           cmake --build build --config Debug --target main_test
-          ctest --test-dir build --config Debug --output-on-failure
+          ctest --test-dir build -C Debug --output-on-failure
 
       - name: Build the package (Release mode)
         run: cmake --build build --config Release --target func
