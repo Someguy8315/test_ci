@@ -10,15 +10,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v4
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade uv
-          uv pip install --system black
+          uv venv
+          uv pip install black
 
       - name: Check code formatting
         run: |
