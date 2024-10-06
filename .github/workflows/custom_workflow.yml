@@ -20,7 +20,7 @@ jobs:
 
       - name: Check code formatting
         run: |
-          black --check .
+          uv run black --check .
 
       - name: Install bun
         uses: oven-sh/setup-bun@v2
