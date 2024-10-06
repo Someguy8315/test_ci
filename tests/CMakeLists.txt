@@ -16,12 +16,14 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest)
 
-target_compile_options(${PROJECT_NAME} PRIVATE
-    $<$<CONFIG:Debug>:${ASAN_FLAG} -g>
-)
-target_link_options(${PROJECT_NAME} PRIVATE
-    $<$<CONFIG:Debug>:${ASAN_FLAG}>
-)
+if (UNIX)
+    target_compile_options(${PROJECT_NAME} PRIVATE
+        $<$<CONFIG:Debug>:${ASAN_FLAG} -g>
+    )
+    target_link_options(${PROJECT_NAME} PRIVATE
+        $<$<CONFIG:Debug>:${ASAN_FLAG}>
+    )
+endif()
 
 target_link_libraries(${PROJECT_NAME} PRIVATE func GTest::gtest_main)
 
