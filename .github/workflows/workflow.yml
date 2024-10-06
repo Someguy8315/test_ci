@@ -4,7 +4,10 @@ on: [push, pull_request]
 
 jobs:
   cmake:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
 
     steps:
       - name: Checkout code
@@ -27,11 +30,16 @@ jobs:
       - name: Install the package
         run: cmake --install build --config Release --prefix package
 
-      - name: Archive the package
+      - name: Archive the package (Linux)
+        if: runner.os == 'Linux'
         run: tar -czvf package.tar.gz package/
+        
+      - name: Archive the package (Windows)
+        if: runner.os == 'Windows'
+        run: powershell Compress-Archive -Path package\* -DestinationPath package.zip
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: package
-          path: package.tar.gz
+          path: ${{ runner.os == 'Windows' && 'package.zip' || 'package.tar.gz' }}
