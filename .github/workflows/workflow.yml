@@ -10,36 +10,30 @@ jobs:
         os: [ubuntu-latest, windows-latest]
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup CMake and Ninja
         uses: lukka/get-cmake@latest
 
-      - name: Configure CMake
-        run: cmake -S . -B build -G "Ninja Multi-Config" -DINSTALL_GTEST=OFF
-
-      - name: Build and run the tests (Debug mode)
+      - name: Configure and build
         run: |
+          cmake -S . -B build -G "Ninja Multi-Config" -DINSTALL_GTEST=OFF
           cmake --build build --config Debug --target main_test
           ctest --test-dir build -C Debug --output-on-failure
+          cmake --build build --config Release --target func
+          cmake --install build --config Release --prefix package
 
-      - name: Build the package (Release mode)
-        run: cmake --build build --config Release --target func
+      - name: Archive and upload package
+        run: |
+          if [ $RUNNER_OS == 'Linux' ]; then
+            tar -czvf package.tar.gz package/
+            echo "package.tar.gz" >> upload.txt
+          else
+            powershell Compress-Archive -Path package\* -DestinationPath package.zip
+            echo "package.zip" >> upload.txt
+          fi
 
-      - name: Install the package
-        run: cmake --install build --config Release --prefix package
-
-      - name: Archive the package (Linux)
-        if: runner.os == 'Linux'
-        run: tar -czvf package.tar.gz package/
-        
-      - name: Archive the package (Windows)
-        if: runner.os == 'Windows'
-        run: powershell Compress-Archive -Path package\* -DestinationPath package.zip
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: package
-          path: ${{ runner.os == 'Windows' && 'package.zip' || 'package.tar.gz' }}
+          path: $(cat upload.txt)
