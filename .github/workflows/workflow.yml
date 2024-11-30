@@ -33,8 +33,16 @@ jobs:
         if: runner.os == 'Windows'
         run: powershell Compress-Archive -Path package\* -DestinationPath package-windows.zip
 
-      - name: Upload artifact
+      - name: Upload artifact (Linux)
+        if: runner.os == 'Linux'
         uses: actions/upload-artifact@v4
         with:
-          name: package
-          path: ${{ runner.os == 'Windows' && 'package-windows.zip' || 'package-linux.tar.gz' }}
+          name: package-linux
+          path: "package-linux.tar.gz"
+
+      - name: Upload artifact (Windows)
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v4
+        with:
+          name: package-windows
+          path: "package-windows.zip"
