@@ -37,4 +37,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: package
-          path: ${{ runner.os == 'Windows' && 'package.zip' || 'package.tar.gz' }}
+          path: ${{ runner.os == 'Windows' && 'package-windows.zip' || 'package-linux.tar.gz' }}
