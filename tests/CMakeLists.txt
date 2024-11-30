@@ -7,12 +7,7 @@ set(ASAN_FLAG "-fsanitize=address")
 add_executable(main_test main.cpp test1.cpp)
 
 # get GTest
-include(FetchContent)
-FetchContent_Declare(
-    googletest
-    GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG v1.14.0
-)
+add_subdirectory(googletest)
 
 if(WIN32)
     set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
@@ -24,8 +19,6 @@ if(WIN32)
         $<TARGET_FILE_DIR:${PROJECT_NAME}>
     )
 endif()
-
-FetchContent_MakeAvailable(googletest)
 
 if(UNIX)
     target_compile_options(${PROJECT_NAME} PRIVATE
