@@ -7,7 +7,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [windows-latest]
 
     steps:
       - uses: actions/checkout@v4
@@ -23,17 +23,16 @@ jobs:
           cmake --build build --config Release --target func
           cmake --install build --config Release --prefix package
 
-      - name: Archive and upload package
-        run: |
-          if [ $RUNNER_OS == 'Linux' ]; then
-            tar -czvf package.tar.gz package/
-            echo "package.tar.gz" >> upload.txt
-          else
-            powershell Compress-Archive -Path package\* -DestinationPath package.zip
-            echo "package.zip" >> upload.txt
-          fi
+      - name: Archive the package (Linux)
+        if: runner.os == 'Linux'
+        run: tar -czvf package.tar.gz package/
 
-      - uses: actions/upload-artifact@v4
+      - name: Archive the package (Windows)
+        if: runner.os == 'Windows'
+        run: powershell Compress-Archive -Path package\* -DestinationPath package.zip
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
         with:
           name: package
-          path: $(cat upload.txt)
+          path: ${{ runner.os == 'Windows' && 'package.zip' || 'package.tar.gz' }}
