@@ -17,7 +17,7 @@ jobs:
       - name: Setup CMake and Ninja
         uses: lukka/get-cmake@latest
 
-      - name: Configure and build
+      - name: Configure, build, and test
         run: |
           cmake -S . -B build -G "Ninja Multi-Config" -DINSTALL_GTEST=OFF
           cmake --build build --config Debug --target main_test
@@ -25,24 +25,13 @@ jobs:
           cmake --build build --config Release --target func
           cmake --install build --config Release --prefix package
 
-      - name: Archive the package (Linux)
-        if: runner.os == 'Linux'
-        run: tar -czvf package-linux.tar.gz package/
+      - name: Archive the package
+        run: |
+          tar -czvf package.tar.gz package/
+        shell: bash
 
-      - name: Archive the package (Windows)
-        if: runner.os == 'Windows'
-        run: powershell Compress-Archive -Path package\* -DestinationPath package-windows.zip
-
-      - name: Upload artifact (Linux)
-        if: runner.os == 'Linux'
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: package-linux
-          path: "package-linux.tar.gz"
-
-      - name: Upload artifact (Windows)
-        if: runner.os == 'Windows'
-        uses: actions/upload-artifact@v4
-        with:
-          name: package-windows
-          path: "package-windows.zip"
+          name: package-${{ runner.os }}
+          path: "package.tar.gz"
