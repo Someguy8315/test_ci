@@ -16,5 +16,6 @@ add_subdirectory(src)
 
 if(ENABLE_TESTS)
     message("Tests enabled...")
+    include(CTest)
     add_subdirectory(tests)
 endif()
