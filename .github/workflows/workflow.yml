@@ -25,13 +25,13 @@ jobs:
           cmake --build build --config Release --target func
           cmake --install build --config Release --prefix package
 
-      - name: Archive the package
-        run: |
-          tar -czvf package.tar.gz package/
-        shell: bash
+#     - name: Archive the package
+#       run: |
+#         tar -czvf package.tar.gz package/
+#        shell: bash
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: package-${{ runner.os }}
-          path: "package.tar.gz"
+#      - name: Upload artifact
+#       uses: actions/upload-artifact@v4
+#       with:
+#         name: package-${{ runner.os }}
+#         path: "package.tar.gz"

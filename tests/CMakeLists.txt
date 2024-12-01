@@ -2,8 +2,6 @@ project(main_test)
 
 include(CTest)
 
-set(ASAN_FLAG "-fsanitize=address")
-
 add_executable(main_test main.cpp test1.cpp)
 
 # get GTest
@@ -21,6 +19,7 @@ if(WIN32)
 endif()
 
 if(UNIX)
+    set(ASAN_FLAG "-fsanitize=address")
     target_compile_options(${PROJECT_NAME} PRIVATE
         $<$<CONFIG:Debug>:${ASAN_FLAG} -g>
     )

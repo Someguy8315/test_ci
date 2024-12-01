@@ -14,11 +14,6 @@ endif()
 
 add_subdirectory(src)
 
-if(UNIX)
-    message("Unix: Setting RPATH...")
-    list(APPEND CMAKE_INSTALL_RPATH $ORIGIN/../lib)
-endif()
-
 if(ENABLE_TESTS)
     message("Tests enabled...")
     include(CTest)
