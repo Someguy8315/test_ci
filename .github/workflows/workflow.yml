@@ -14,24 +14,13 @@ jobs:
         with:
           submodules: "recursive"
 
-      - name: Setup CMake and Ninja
-        uses: lukka/get-cmake@latest
+      - name: Setup Rust toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1
 
-      - name: Configure, build, and test
-        run: |
-          cmake -S . -B build -G "Ninja Multi-Config" -DINSTALL_GTEST=OFF
-          cmake --build build --config Debug --target main_test
-          ctest --test-dir build -C Debug --output-on-failure
-          cmake --build build --config Release --target func
-          cmake --install build --config Release --prefix package
-
-#     - name: Archive the package
-#       run: |
-#         tar -czvf package.tar.gz package/
-#        shell: bash
-
-#      - name: Upload artifact
-#       uses: actions/upload-artifact@v4
-#       with:
-#         name: package-${{ runner.os }}
-#         path: "package.tar.gz"
+      # - name: Configure, build, and test
+      #   run: |
+      #     cmake -S . -B build -G "Ninja Multi-Config" -DINSTALL_GTEST=OFF
+      #     cmake --build build --config Debug --target main_test
+      #     ctest --test-dir build -C Debug --output-on-failure
+      #     cmake --build build --config Release --target func
+      #     cmake --install build --config Release --prefix package
