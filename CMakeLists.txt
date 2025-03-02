@@ -15,15 +15,7 @@ if(NOT IS_MULTI_CONFIG AND CMAKE_BUILD_TYPE STREQUAL "")
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
-include(FetchContent)
-
-FetchContent_Declare(
-    re2
-    GIT_REPOSITORY https://github.com/google/re2.git
-    GIT_TAG 2024-07-02
-)
-
-FetchContent_MakeAvailable(re2)
+include(cmake/get_deps.cmake)
 
 add_subdirectory(src)
 
