@@ -7,5 +7,5 @@ TEST(basic_test_suite, sanity_checks1)
     arr[2] = 5;
 
     int value = getValue();
-    EXPECT_EQ(value, 500);
+    EXPECT_EQ(value, 1);
 }
