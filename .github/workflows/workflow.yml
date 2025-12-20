@@ -10,12 +10,15 @@ jobs:
         os: [ubuntu-latest, windows-latest]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           submodules: "recursive"
 
       - name: Setup CMake and Ninja
         uses: lukka/get-cmake@latest
+        with:
+          cmakeVersion: 3.31
+          ninjaVersion: 1.13
 
       - name: Configure, build, and test
         run: |
