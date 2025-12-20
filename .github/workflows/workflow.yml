@@ -23,9 +23,9 @@ jobs:
       - name: Configure, build, and test
         run: |
           cmake -S . -B build -G "Ninja Multi-Config" -DINSTALL_GTEST=OFF
-          cmake --build build --config Debug --target main_test
+          cmake --build build --config Debug --target main_test --parallel
           ctest --test-dir build -C Debug --output-on-failure
-          cmake --build build --config Release --target func
+          cmake --build build --config Release --target func --parallel
           cmake --install build --config Release --prefix package
 
 #     - name: Archive the package
